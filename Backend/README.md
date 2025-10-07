@@ -83,3 +83,80 @@ The request body must be a JSON object with the following structure:
 
 - The password is securely hashed before storing.
 - The returned token can be used for authenticated requests.
+
+
+## `/users/login` Endpoint
+
+### Description
+
+Authenticates an existing user. This endpoint validates the input data, checks the user's credentials, and returns an authentication token along with the user data.
+
+### Method
+
+`POST`
+
+### Request Body
+
+The request body must be a JSON object with the following structure:
+
+```json
+{
+  "email": "string (valid email, required)",
+  "password": "string (min 6 characters, required)"
+}
+```
+
+#### Example
+
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "securePassword123"
+}
+```
+
+### Responses
+
+#### Success
+
+- **Status Code:** `200 OK`
+- **Body:**
+  ```json
+  {
+    "token": "JWT_TOKEN",
+    "user": {
+      // user object (excluding password)
+    }
+  }
+  ```
+
+#### Validation Error
+
+- **Status Code:** `400 Bad Request`
+- **Body:**
+  ```json
+  {
+    "erros": [
+      {
+        "msg": "Error message",
+        "param": "field",
+        "location": "body"
+      }
+    ]
+  }
+  ```
+
+#### Authentication Error
+
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+  ```json
+  {
+    "message": "Something went wrong."
+  }
+  ```
+
+### Notes
+
+- The password is checked securely against the stored hash.
+- The returned token can be used for authenticated requests.

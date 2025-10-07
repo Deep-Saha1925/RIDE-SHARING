@@ -160,3 +160,56 @@ The request body must be a JSON object with the following structure:
 
 - The password is checked securely against the stored hash.
 - The returned token can be used for authenticated requests.
+
+
+## `/users/profile` Endpoint
+
+### Description
+
+Returns the authenticated user's profile information. This endpoint requires a valid authentication token (JWT) sent via cookie or `Authorization` header.
+
+### Method
+
+`GET`
+
+### Authentication
+
+- Requires JWT token in the `token` cookie **or** in the `Authorization` header as `Bearer <token>`.
+
+### Request
+
+No request body required.
+
+### Responses
+
+#### Success
+
+- **Status Code:** `200 OK`
+- **Body:**
+  ```json
+  {
+    "_id": "user_id",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "socketId": "optional_socket_id"
+    // other user fields (excluding password)
+  }
+  ```
+
+#### Unauthorized
+
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
+
+### Notes
+
+- You must be logged in to access this endpoint.
+- Returns the user object associated with the provided token.

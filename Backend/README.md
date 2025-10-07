@@ -369,3 +369,187 @@ The request body must be a JSON object with the following structure:
 - The password is securely hashed before storing.
 - The returned token can be used for authenticated requests.
 - Vehicle details are required for registration.
+
+## `/drivers/login` Endpoint
+
+### Description
+
+Authenticates an existing driver. This endpoint validates the input data, checks the driver's credentials, and returns an authentication token along with the driver data.
+
+### Method
+
+`POST`
+
+### Request Body
+
+The request body must be a JSON object with the following structure:
+
+```json
+{
+  "email": "string (valid email, required)",
+  "password": "string (min 6 characters, required)"
+}
+```
+
+#### Example
+
+```json
+{
+  "email": "alice.smith@example.com",
+  "password": "securePassword123"
+}
+```
+
+### Responses
+
+#### Success
+
+- **Status Code:** `200 OK`
+- **Body:**
+  ```json
+  {
+    "token": "JWT_TOKEN",
+    "driver": {
+      // driver object (excluding password)
+    }
+  }
+  ```
+
+#### Validation Error
+
+- **Status Code:** `404 Not Found`
+- **Body:**
+  ```json
+  {
+    "erros": [
+      {
+        "msg": "Error message",
+        "param": "field",
+        "location": "body"
+      }
+    ]
+  }
+  ```
+
+#### Authentication Error
+
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+  ```json
+  {
+    "message": "Something went wrong."
+  }
+  ```
+
+---
+
+## `/drivers/profile` Endpoint
+
+### Description
+
+Returns the authenticated driver's profile information. This endpoint requires a valid authentication token (JWT) sent via cookie or `Authorization` header.
+
+### Method
+
+`GET`
+
+### Authentication
+
+- Requires JWT token in the `token` cookie **or** in the `Authorization` header as `Bearer <token>`.
+
+### Request
+
+No request body required.
+
+### Responses
+
+#### Success
+
+- **Status Code:** `200 OK`
+- **Body:**
+  ```json
+  {
+    "_id": "driver_id",
+    "fullname": {
+      "firstname": "Alice",
+      "lastname": "Smith"
+    },
+    "email": "alice.smith@example.com",
+    "socketId": "optional_socket_id",
+    "status": "active|inactive",
+    "vehicle": {
+      "color": "Red",
+      "plate": "XYZ1234",
+      "capacity": 4,
+      "vehicleType": "car"
+    },
+    "location": {
+      "lat": 0,
+      "lon": 0
+    }
+    // other driver fields (excluding password)
+  }
+  ```
+
+#### Unauthorized
+
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
+
+### Notes
+
+- You must be logged in as a driver to access this endpoint.
+- Returns the driver object associated with the provided token.
+
+---
+
+## `/drivers/logout` Endpoint
+
+### Description
+
+Logs out the authenticated driver by blacklisting their JWT token for 24 hours and clearing the authentication cookie. This endpoint requires a valid authentication token.
+
+### Method
+
+`GET`
+
+### Authentication
+
+- Requires JWT token in the `token` cookie **or** in the `Authorization` header as `Bearer <token>`.
+
+### Request
+
+No request body required.
+
+### Responses
+
+#### Success
+
+- **Status Code:** `200 OK`
+- **Body:**
+  ```json
+  {
+    "message": "Logged out."
+  }
+  ```
+
+#### Unauthorized
+
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
+
+### Notes
+
+- The token is blacklisted for 24 hours and cannot be used again.
+- The authentication cookie is cleared on logout.
+- You must be logged in as a driver to access this endpoint.

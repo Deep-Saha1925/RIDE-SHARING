@@ -213,3 +213,49 @@ No request body required.
 
 - You must be logged in to access this endpoint.
 - Returns the user object associated with the provided token.
+
+## `/users/logout` Endpoint
+
+### Description
+
+Logs out the authenticated user by blacklisting their JWT token for 24 hours and clearing the authentication cookie. This endpoint requires a valid authentication token.
+
+### Method
+
+`GET`
+
+### Authentication
+
+- Requires JWT token in the `token` cookie **or** in the `Authorization` header as `Bearer <token>`.
+
+### Request
+
+No request body required.
+
+### Responses
+
+#### Success
+
+- **Status Code:** `200 OK`
+- **Body:**
+  ```json
+  {
+    "message": "Logged out."
+  }
+  ```
+
+#### Unauthorized
+
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
+
+### Notes
+
+- The token is blacklisted for 24 hours and cannot be used again.
+- The authentication cookie is cleared on logout.
+- You must be logged in to access this endpoint.

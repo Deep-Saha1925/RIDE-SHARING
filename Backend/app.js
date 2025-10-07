@@ -4,8 +4,10 @@ const cors = require("cors");
 const express = require('express');
 const app = express();
 const connectToDB = require("./db/db");
-const userRoutes = require("./routes/user_routes");
 const cookieparser = require("cookie-parser");
+
+const userRoutes = require("./routes/user_routes");
+const driverRoutes = require("./routes/driver_routes");
 
 connectToDB();
 
@@ -20,5 +22,6 @@ app.get("/", (req, res) =>{
 });
 
 app.use("/users", userRoutes);
+app.use("/drivers", driverRoutes);
 
 module.exports = app;

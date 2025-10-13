@@ -1,24 +1,52 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { data, Link } from "react-router-dom";
+
+import { DriverDataContext } from "../contexts/DriverContext";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const DriverRegister = () => {
+
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [userData, setUserData] = useState({});
+  
+  const [vehicleColor, setVehicleColor] = useState("");
+  const [vehiclePlate, setVehiclePlate] = useState("");
+  const [vehicleCapacity, setVehicleCapacity] = useState("");
+  const [vehicleType, setVehicleType] = useState("");
 
-  const submitHandler = (e) => {
+  const { driver, setDriver } = React.useContext(DriverDataContext);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    setUserData({
-      fullName: {
-        firstName: firstName,
-        lastName: lastName,
+    const driverData = {
+      fullname: {
+        firstname: firstName,
+        lastname: lastName,
       },
       email: email,
       password: password,
-    });
+      vehicle: {
+        color: vehicleColor,
+        plate: vehiclePlate,
+        capacity: vehicleCapacity,
+        vehicleType: vehicleType
+      }
+    };
+
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/drivers/register`, driverData);
+
+    if(response.status === 200){
+      const data = response.data;
+      setDriver(data.driver);
+      localStorage.setItem('token', data.token);
+      navigate("/captain-home");
+    }
 
     console.log(userData);
 
@@ -26,6 +54,10 @@ const DriverRegister = () => {
     setPassword("");
     setFirstName("");
     setLastName("");
+    setVehicleColor("");
+    setVehicleCapacity('');
+    setVehiclePlate("");
+    setVehicleType("");
   };
 
   return (
@@ -89,6 +121,48 @@ const DriverRegister = () => {
               setPassword(e.target.value);
             }}
           />
+
+          <h3 className="text-lg font-medium mb-2">Vehicle Information</h3>
+          <div className="flex gap-2 mb-5">
+            <input
+              className="bg-[#eeeeee] w-1/2 rounded px-4 py-2 border text-lg placeholder:text-base"
+              type="text"
+              required
+              placeholder="Vehicle Color"
+              value={vehicleColor}
+              onChange={(e) => setVehicleColor(e.target.value)}
+            />
+            <input
+              className="bg-[#eeeeee] w-1/2 rounded px-4 py-2 border text-lg placeholder:text-base"
+              type="text"
+              required
+              placeholder="Vehicle Plate"
+              value={vehiclePlate}
+              onChange={(e) => setVehiclePlate(e.target.value)}
+            />
+          </div>
+          <div className="flex gap-2 mb-7">
+            <input
+              className="bg-[#eeeeee] w-1/2 rounded px-4 py-2 border text-lg placeholder:text-base"
+              type="number"
+              required
+              min={1}
+              placeholder="Vehicle Capacity"
+              value={vehicleCapacity}
+              onChange={(e) => setVehicleCapacity(e.target.value)}
+            />
+            <select
+              className="bg-[#eeeeee] w-1/2 rounded px-4 py-2 border text-lg"
+              required
+              value={vehicleType}
+              onChange={(e) => setVehicleType(e.target.value)}
+            >
+              <option value="">Select Type</option>
+              <option value="car">Car</option>
+              <option value="motorcycle">Motorcycle</option>
+              <option value="auto">Auto</option>
+            </select>
+          </div>
 
           <button
             onClick={submitHandler}

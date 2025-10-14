@@ -45,10 +45,10 @@ const DriverRegister = () => {
       const data = response.data;
       setDriver(data.driver);
       localStorage.setItem('token', data.token);
-      navigate("/captain-home");
+      navigate("/driver-home");
     }
 
-    console.log(userData);
+    console.log(driverData);
 
     setEmail("");
     setPassword("");

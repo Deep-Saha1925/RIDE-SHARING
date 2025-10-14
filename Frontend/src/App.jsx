@@ -9,7 +9,7 @@ import Start from './pages/Start'
 import UserProtectWrapper from './pages/UserProtectWrapper'
 import UserLogout from './pages/UserLogout'
 import DriverProtectWrapper from './pages/DriverProtextWrapper'
-import CaptainHome from './pages/CaptainHome'
+import DriverHome from './pages/DriverHome'
 
 export default function App (){
   return (
@@ -34,7 +34,7 @@ export default function App (){
 
         <Route path='/driver-home' element={
           <DriverProtectWrapper>
-            <CaptainHome />
+            <DriverHome />
           </DriverProtectWrapper>
         }/>
       </Routes>

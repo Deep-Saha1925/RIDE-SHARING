@@ -19,7 +19,7 @@ const DriverProtectWrapper = ({
     }, [token])
 
     axios.get(`${import.meta.env.VITE_BASE_URL}/drivers/profile`, {
-        header:{
+        headers:{
             Authorization: `Bearer ${token}`
         }
     }).then(response => {
@@ -38,7 +38,6 @@ const DriverProtectWrapper = ({
             <div>Loading..</div>
         )
     }
-
 
   return (
     <>

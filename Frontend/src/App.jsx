@@ -10,6 +10,7 @@ import UserProtectWrapper from './pages/UserProtectWrapper'
 import UserLogout from './pages/UserLogout'
 import DriverProtectWrapper from './pages/DriverProtextWrapper'
 import DriverHome from './pages/DriverHome'
+import DriverLogout from './pages/DriverLogout'
 
 export default function App (){
   return (
@@ -37,6 +38,13 @@ export default function App (){
             <DriverHome />
           </DriverProtectWrapper>
         }/>
+
+        <Route path='/driver/logout' element={
+          <DriverProtectWrapper>
+            <DriverLogout/>
+          </DriverProtectWrapper>
+        }/>
+
       </Routes>
     </div>
   )

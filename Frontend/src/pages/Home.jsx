@@ -120,7 +120,7 @@ const Home = () => {
 
         <div ref={panelRef} className=" bg-white h-0">
           <LocationSearchPanel
-            vehiclePanel={vehiclePanel}
+            setPanelOpen={setPanelOpen}
             setVehiclePanel={setVehiclePanel}
           />
         </div>
@@ -128,8 +128,11 @@ const Home = () => {
 
       <div
         ref={vehiclePanelRef}
-        className="fixed w-full z-10 bottom-0 translate-y-full px-3 py-6 bg-white"
+        className="fixed w-full z-10 bottom-0 translate-y-full px-3 py-10 pt-15 bg-white"
       >
+        <h5 className="p-3 text-center w-[93%] absolute top-0" onClick={() => {
+          setVehiclePanel(false)
+        }}><i className="text-2xl text-gray-200 ri-arrow-down-wide-fill"></i></h5>
         <h3 className="text-2xl font-semibold mb-5">Choose a Vehicle</h3>
 
         {/* Car */}

@@ -15,7 +15,7 @@ const ConfirmRide = (props) => {
               <i className="text-lg ri-map-pin-user-line"></i>
               <div>
                 <h3 className='text-lg font-medium'>561/11-A</h3>
-                <p className='text-sm -mt-1 text-gray-500'>gsjkfjksgdfskdfhskdfhk</p>
+                <p className='text-sm -mt-1 text-gray-500'>Source</p>
               </div>
             </div>
 
@@ -23,7 +23,7 @@ const ConfirmRide = (props) => {
               <i className="text-lg ri-map-pin-line"></i>
               <div>
                 <h3 className='text-lg font-medium'>561/11-A</h3>
-                <p className='text-sm -mt-1 text-gray-500'>gsjkfjksgdfskdfhskdfhk</p>
+                <p className='text-sm -mt-1 text-gray-500'>Destination</p>
               </div>
             </div>
 

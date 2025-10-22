@@ -11,6 +11,7 @@ import UserLogout from './pages/UserLogout'
 import DriverProtectWrapper from './pages/DriverProtextWrapper'
 import DriverHome from './pages/DriverHome'
 import DriverLogout from './pages/DriverLogout'
+import Riding from './pages/Riding'
 
 export default function App (){
   return (
@@ -21,6 +22,7 @@ export default function App (){
         <Route path='/register' element={<UserRegister/>} />
         <Route path='/driver-login' element={<DriverLogin/>} />
         <Route path='/driver-register' element={<DriverRegister/>} />
+        <Route path='/riding' element={<Riding/>} />
         <Route path='/home' element={
           <UserProtectWrapper>
             <Home/>

@@ -7,7 +7,7 @@ const RidePopup = (props) => {
         <h5
           className="p-3 text-center w-[93%] absolute top-0"
           onClick={() => {
-            props.setRidePopupPanel(false)
+            props.setRidePopupPanel(false);
           }}
         >
           <i className="text-2xl text-gray-200 ri-arrow-down-wide-fill"></i>
@@ -16,11 +16,15 @@ const RidePopup = (props) => {
 
         <div className="flex items-center mt-4 bg-yellow-500 p-4 rounded-lg justify-between">
           <div className="flex items-center gap-3 ">
-            <img className="h-12 w-12 rounded-full object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fHww&fm=jpg&q=60&w=3000" alt="" />
+            <img
+              className="h-12 w-12 rounded-full object-cover"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fHww&fm=jpg&q=60&w=3000"
+              alt=""
+            />
 
             <h2 className="text-lg font-medium">Harsh Patel</h2>
           </div>
-            <h5 className="text-lg font-semibold">2.2 KM</h5>
+          <h5 className="text-lg font-semibold">2.2 KM</h5>
         </div>
 
         <div className="flex justify-between gap-2 flex-col items-center">
@@ -50,23 +54,25 @@ const RidePopup = (props) => {
             </div>
           </div>
 
-          <button
-            onClick={() => {
-                props.setConfirmRidePopupPanel(true)
-            }}
-            className="w-full mt-5 bg-green-500 text-white font-semibold p-2 rounded-lg"
-          >
-            Confirm
-          </button>
+          <div className="flex w-full mt-5 items-center justify-between">
+            <button
+              onClick={() => {
+                props.setRidePopupPanel(false);
+              }}
+              className=" mt-1 bg-gray-300 text-gray-700 font-semibold p-2 px-10 rounded-lg"
+            >
+              Ignore
+            </button>
 
-          <button
-            onClick={() => {
-                props.setRidePopupPanel(false)
-            }}
-            className="w-full mt-1 bg-gray-300 text-gray-700 font-semibold p-2 rounded-lg"
-          >
-            Ignore
-          </button>
+            <button
+              onClick={() => {
+                props.setConfirmRidePopupPanel(true);
+              }}
+              className="bg-green-500 text-white font-semibold p-2 px-10 rounded-lg"
+            >
+              Accept
+            </button>
+          </div>
         </div>
       </div>
     </div>

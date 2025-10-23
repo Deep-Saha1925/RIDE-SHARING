@@ -12,6 +12,8 @@ import DriverProtectWrapper from './pages/DriverProtextWrapper'
 import DriverHome from './pages/DriverHome'
 import DriverLogout from './pages/DriverLogout'
 import Riding from './pages/Riding'
+import DriverRiding from './pages/DriverRiding'
+import 'remixicon/fonts/remixicon.css'
 
 export default function App (){
   return (
@@ -23,6 +25,7 @@ export default function App (){
         <Route path='/driver-login' element={<DriverLogin/>} />
         <Route path='/driver-register' element={<DriverRegister/>} />
         <Route path='/riding' element={<Riding/>} />
+        <Route path='/driver-riding' element={<DriverRiding />} />
         <Route path='/home' element={
           <UserProtectWrapper>
             <Home/>

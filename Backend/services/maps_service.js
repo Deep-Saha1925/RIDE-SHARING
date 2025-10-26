@@ -31,3 +31,37 @@ module.exports.getAddressCoordinate = async (address) => {
         throw new Error(`Failed to fetch coordinates: ${error.message}`);
     }
 };
+
+module.exports.getDistanceTime = async (origin, destination) => {
+    if(!origin || !destination) {
+        throw new Error('Origin and destination are required !!');
+    }
+
+    const apiKey = process.env.GOOGLE_MAPS_API;
+
+    const url = `https://maps.googleapis.com/maps/api/geocode/json`;
+
+    try {
+        const response = await axios.get(url, {
+            params: {
+                address: address,
+                key: apiKey
+            }
+        });
+
+        const data = response.data;
+
+        if (data.status !== "OK") {
+            throw new Error(`Unable to fetch distance and time.`);
+        }
+
+        if(data.rows[0].elements[0].status === 'ZERO_RESULTS'){
+            throw new Error("No routed found.");
+        }
+        
+        return data.rows[0].elements[0];
+
+    } catch (error) {
+        throw new Error(`Failed to fetch coordinates: ${error.message}`);
+    }
+}

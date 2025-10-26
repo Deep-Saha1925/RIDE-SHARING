@@ -1,5 +1,4 @@
-const dotenv = require("dotenv");
-dotenv.config();
+const dotenv = require("dotenv")
 const cors = require("cors");
 const express = require('express');
 const app = express();
@@ -8,9 +7,9 @@ const cookieparser = require("cookie-parser");
 
 const userRoutes = require("./routes/user_routes");
 const driverRoutes = require("./routes/driver_routes");
+const mapsRoutes = require("./routes/maps_routes");
 
 connectToDB();
-
 
 app.use(cors());
 app.use(express.json());
@@ -23,5 +22,6 @@ app.get("/", (req, res) =>{
 
 app.use("/users", userRoutes);
 app.use("/drivers", driverRoutes);
+app.use("/maps", mapsRoutes);
 
 module.exports = app;

@@ -38,7 +38,6 @@ module.exports.getDistanceTime = async (origin, destination) => {
     }
 
     const apiKey = process.env.GOOGLE_MAPS_API;
-
     const url = `https://maps.googleapis.com/maps/api/geocode/json`;
 
     try {
@@ -64,4 +63,35 @@ module.exports.getDistanceTime = async (origin, destination) => {
     } catch (error) {
         throw new Error(`Failed to fetch coordinates: ${error.message}`);
     }
+}
+
+module.exports.getAutoCompleteSuggestions = async (input) => {
+    if(!input){
+        throw new Error("Query is required..");
+    }
+
+    const apiKey = process.env.GOOGLE_MAPS_API;
+    const url = `https://maps.googleapis.com/maps/api/geocode/json`;
+
+    try {
+        const response = await axios.get(url, {
+            params: {
+                address: address,
+                key: apiKey
+            }
+        });
+
+        const data = response.data;
+
+        if (data.status !== "OK") {
+            throw new Error(`Unable to fetch distance and time.`);
+        }
+
+        return data.predictions;
+
+    } catch (error) {
+        throw new Error(`Failed to fetch coordinates: ${error.message}`);
+    }
+
+
 }

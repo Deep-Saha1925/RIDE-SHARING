@@ -17,10 +17,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieparser())
 
-app.get("/", (req, res) =>{
-    res.send("Hello");
-});
-
 app.use("/users", userRoutes);
 app.use("/drivers", driverRoutes);
 app.use("/maps", mapsRoutes);

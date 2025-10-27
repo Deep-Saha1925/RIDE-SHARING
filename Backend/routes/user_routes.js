@@ -19,24 +19,6 @@ router.post("/login", [
     userController.loginUser
 )
 
-const mongoose = require("mongoose");
-
-const blacklistTokenSchema = mongoose.Schema({
-    token: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-        expires: 86400 // 24 hours in seconds
-    }
-});
-
-const BlacklistToken = mongoose.model("BlacklistToken", blacklistTokenSchema);
-
-module.exports = BlacklistToken;
 router.get("/profile", authMiddleware.authUser, userController.getUserProfile);
 router.get("/logout", authMiddleware.authUser, userController.logoutUser);
 

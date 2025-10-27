@@ -1,32 +1,30 @@
-import React from 'react'
+import React from "react";
 
 const LocationSearchPanel = (props) => {
-
-  // sample array
-  const locations = [
-    "24B, Near Sharma's Cafe, CIS, Siliguri",
-    "2B, Demo Sharma's Cafe, CIS, Bhopal",
-    "18C, Near Sharnsdkfksdkjfsknfksfnkma's Cafe, CIS, Siliguri"
-  ]
-
   return (
     <div>
-      {/* Sample data */}
-
-      {
-        locations.map(function (elem, idx){
-          return <div key={idx} onClick={() => {
-            props.setVehiclePanel(true)
-            props.setPanelOpen(false)
-          }} className='flex gap-4 border-2 p-3 border-white active:border-black rounded-xl items-center my-2 justify-start'>
-        <h2 className='bg-[#eee] flex items-center justify-center h-10 w-10 rounded-full'><i className='ri-map-pin-fill'></i></h2>
-        <h4 className='font-medium'>{elem}</h4>
-      </div>
-        })
-      }
-      
+      {props.suggestions.map((elem, idx) => (
+        <div
+          key={idx}
+          onClick={() => {
+            if (props.activeField === "pickup") {
+              props.setPickup(elem);
+            } else if (props.activeField === "destination") {
+              props.setDestination(elem);
+            }
+            props.setVehiclePanel(true);
+            props.setPanelOpen(false);
+          }}
+          className="flex gap-4 border-2 p-3 border-white active:border-black rounded-xl items-center my-2 justify-start"
+        >
+          <h2 className="bg-[#eee] flex items-center justify-center h-10 w-10 rounded-full">
+            <i className="ri-map-pin-fill"></i>
+          </h2>
+          <h4 className="font-medium">{elem}</h4>
+        </div>
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default LocationSearchPanel
+export default LocationSearchPanel;

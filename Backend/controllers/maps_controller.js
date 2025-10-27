@@ -50,6 +50,6 @@ module.exports.getAutoCompleteSuggestions = async (req, res, next) => {
 
         return res.status(200).json(suggestions);
     } catch (error) {
-        
+        res.status(500).json({ message: 'Internal server error' });
     }
 }
